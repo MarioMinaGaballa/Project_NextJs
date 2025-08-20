@@ -11,6 +11,7 @@ import { formatCurrency } from './utils';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
+
 export async function fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
@@ -62,6 +63,9 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
+
+         // Wait for all promises to resolve 
+         // waterfalling the promises
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
